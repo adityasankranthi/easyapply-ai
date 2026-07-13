@@ -3,23 +3,24 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import tailwindcss from '@tailwindcss/vite'
 
-
-// https://vitejs.dev/config/
+// This is the correct configuration for a Vite-based Chrome extension.
 export default defineConfig({
-  plugins: [react(),tailwindcss()
-],
+  plugins: [react(), tailwindcss()],
   build: {
+    outDir: 'dist',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        background: resolve(__dirname, 'background.js'),
-        content: resolve(__dirname, 'content.js'),
+        // Define all entry points for your extension
+        popup: resolve(__dirname, 'index.html'),
+        background: resolve(__dirname, 'src/background.ts'),
+        content: resolve(__dirname, 'src/content.ts'),
       },
       output: {
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
+        // Configure the output file names
+        entryFileNames: `[name].js`,
+        chunkFileNames: `assets/js/[name].js`,
         assetFileNames: `assets/[name].[ext]`,
-      }
-    }
-  }
+      },
+    },
+  },
 })

@@ -1,39 +1,43 @@
 {
   "manifest_version": 3,
-  "name": "EasyApply.ai Career Hub",
-  "version": "1.0",
-  "description": "Analyzes job descriptions and provides AI-powered application assistance.",
+  "name": "EasyApply.ai",
+  "version": "0.1.0",
+  "description": "AI-powered job application assistant.",
   "permissions": [
     "storage",
-    "activeTab",
-    "scripting"
+    "activeTab"
   ],
   "host_permissions": [
-    "https://generativelanguage.googleapis.com/*"
+    "https://www.linkedin.com/*",
+    "https://*.indeed.com/*"
   ],
-  "action": {
-    "default_popup": "index.html",
-    "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
-    }
-  },
-  "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
-      "matches": ["https://*.linkedin.com/jobs/view/*"],
+      "matches": [
+        "https://www.linkedin.com/jobs/view/*",
+        "https://*.indeed.com/viewjob*",
+        "https://*.indeed.com/jobs*"
+      ],
       "js": ["content.js"]
     }
   ],
   "web_accessible_resources": [
     {
-        "resources": ["assets/*"],
-        "matches": ["<all_urls>"]
+      "resources": ["assets/*"],
+      "matches": ["<all_urls>"]
     }
-  ]
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "EasyApply.ai"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
 }
